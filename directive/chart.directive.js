@@ -27,6 +27,7 @@
 
             function init() {
                 vm.query = {};
+                vm.reportchart = "";
                 vm.viewyear = String(new Date().getFullYear());
                 vm.viewmonth = "1";
                 vm.yearlist = [];
@@ -36,7 +37,6 @@
             }
 
             function search() {
-                vm.reportchart = "";
                 var d = new Date(Number(vm.viewyear), Number(vm.viewmonth) - 1, 1);
                 vm.query.DepartureStartDate = $filter('date')(d, 'yyyy-MM-dd');
                 vm.query.DepartureEndDate = $filter('date')(d.setFullYear(Number(vm.viewyear) + 1, Number(vm.viewmonth) - 1, 0), 'yyyy-MM-dd');
