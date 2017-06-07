@@ -1,0 +1,26 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script src="directive/ng-google-chart.js"></script>
+    <script src="app.js"></script>
+    <script src="service/data.service.js"></script>
+    <script src="filter/object-sort.filter.js"></script>
+    <script src="directive/chart.directive.js"></script>
+    <script src="controller/chart.controller.js"></script>
+    <title>Document</title>
+</head>
+
+<body ng-app="app">
+    <div ng-controller="ChartController as vm">
+        <div id="container" ng-init="vm.init()">
+            <chart-report></chart-report>
+        </div>
+    </div>
+</body>
+
+</html>

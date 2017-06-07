@@ -1,0 +1,67 @@
+<div class="container" ng-init="vm.init();" style="background: #fff; box-shadow: 0 0 10px #ccc; border-radius: 5px; padding: 10px 20px;">
+    <div class="cizgiliBaslik">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="control-btn dropdown">
+            <a href="javascript:void(0)" style="padding-left:20px;color: #000" title="Hepsini Göster" ng-click="vm.sort = vm.sort == 5 ? '' : 5"><i class="fa fa-tasks"></i></a>
+            <a href="javascript:void(0)" style="padding-left:10px;color: #000" title="Chart" ng-click="vm.chartLoad(); vm.ischart = !vm.ischart"><i class="fa fa-pie-chart"></i></a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="chart-parent">
+        <div class="table-responsive" style="font-size:13px; white-space: nowrap;">
+            <table class="table table-bordered tableRevision">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td ng-repeat="parent in vm.newtemp.total.month" ng-bind="(parent.month | uppercase)+'.'+(parent.year)"></td>
+                        <td>TOPLAM</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat-start="(key,item) in vm.newtemp | limitTo:vm.sort" ng-class="item.active && !item.check ? 'active' : item.check ? 'warning' : ''" ng-if="key != 'total'">
+                        <td>
+                            <div class="checkbox3 checkbox-warning checkbox-inline checkbox-table">
+                                <input type="checkbox" id="{{key}}" ng-model="item.check" ng-init="item.check = false" ng-change="vm.chartLoad()">
+                                <label for="{{key}}"></label>
+                            </div>
+                        </td>
+                        <td class="text-left" ng-click="item.active = !item.active" style="cursor: pointer;">
+                            <span>{{item.name}}</span>
+                        </td>
+                        <td ng-repeat="mnt in item.month track by $index">{{mnt.total}}</td>
+                        <td>{{item.total}}</td>
+                    </tr>
+                    <tr ng-repeat-start="(key2,item2) in item.group" ng-if="item.active" ng-class="item.active ? 'warning' : ''">
+                        <td></td>
+                        <td class="text-left pl20" ng-click="item2.active = !item2.active">
+                            <i class="fa" ng-class="item2.active ? 'fa-minus' : 'fa-plus'"></i> {{key2}}</td>
+                        <td ng-repeat="mnt in item2.month track by $index">{{mnt.total}}</td>
+                        <td>{{item2.total}}</td>
+                    </tr>
+                    <tr ng-repeat-start="(key3,item3) in item2.class" ng-if="item2.active && item.active" ng-class="item.active ? 'warning' : ''">
+                        <td></td>
+                        <td class="text-left" style="padding-left: 40px">{{key3}}</td>
+                        <td ng-repeat="mnt in item3.month track by $index">{{mnt.total}}</td>
+                        <td>{{item3.total}}</td>
+                    </tr>
+                    <tr ng-repeat-end ng-if="true"></tr>
+                    <tr ng-repeat-end ng-if="true"></tr>
+                    <tr ng-repeat-end ng-if="true"></tr>
+                </tbody>
+                <tfoot style="background: #353535; color: #fff; font-weight: 600;">
+                    <tr class="text-bold">
+                        <td class="text-left" colspan="2">TOPLAM</td>
+                        <td ng-repeat="mnt in vm.newtemp.total.month" ng-init="vm.newtemp.total.check = true">{{mnt.total}}</td>
+                        <td>{{vm.newtemp.total.total}}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="text-muted text-center small">{{vm.query.DepartureStartDate | date:'dd MMM yyyy'}} - {{vm.query.DepartureEndDate | date:'dd MMM yyyy'}}</div>
+        <div google-chart chart="vm.reportchart" ng-show="vm.ischart" style="height:400px;"></div>
+        <div class="chart-loading" ng-if="vm.reportchart == ''"></div>
+    </div>
+</div>
